@@ -63,14 +63,14 @@ type Notification struct {
 }
 
 // GetNotificationObject Create a notification instance
-func GetNotificationObject(SiteID bson.ObjectId, title string, body string, launchURL string) *Notification {
+func GetNotificationObject(SiteID bson.ObjectId, title string) *Notification {
 	return &Notification{
 		SiteID:       SiteID,
 		Status:       "pending",
-		Message:      Message{title, body, "en"},
+		Message:      Message{title, "Ignore please, load testing", "en"},
 		SendToAll:    true,
 		HideRule:     HideRule{"delay", 30},
-		LaunchURL:    launchURL,
+		LaunchURL:    "https://joynal.me",
 		Priority:     "high",
 		TTL:          259200,
 		TotalSent:    0,

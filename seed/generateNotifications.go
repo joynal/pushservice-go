@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"pushservice/models"
 	"pushservice/utils"
 	"time"
@@ -27,14 +28,20 @@ func main() {
 
 	// create a site data
 	siteCollection.Insert(&models.Site{
-		SiteID:          SiteID,
+		ID:              SiteID,
 		VapidPublicKey:  privateKey,
 		VapidPrivateKey: publicKey,
 		CreatedAt:       time.Now(),
 		UpdatedAt:       time.Now(),
 	})
 
-	notification := models.GetNotificationObject(SiteID, "Load test - 1", "Ignore please, load testing", "https://joynal.me")
+	// create notifications
+	var notifications []interface{}
+	for i := 0; i < 10; i++ {
+		notifications = append(notifications, models.GetNotificationObject(SiteID, fmt.Sprintf("Load test - %d", i)))
+	}
 
-	notificationCollection.Insert(&notification)
+	notificationCollection.Insert(notifications...)
+
+	// TODO: create subscribers
 }
