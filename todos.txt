@@ -1,0 +1,10 @@
+TODO: Generate sites dummy data
+    - notification
+    - notificationAccount
+    - subscriber
+TODO: Find MongoDB client
+TODO: Find kafka client
+TODO: Scheduler
+TODO: Parser
+TODO: Sender
+TODO: Status worker
