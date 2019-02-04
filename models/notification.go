@@ -3,7 +3,7 @@ package models
 import (
 	"time"
 
-	"github.com/globalsign/mgo/bson"
+	"github.com/mongodb/mongo-go-driver/bson/primitive"
 )
 
 // Message - Notification message
@@ -40,31 +40,31 @@ type HideRule struct {
 
 // Notification model
 type Notification struct {
-	ID           bson.ObjectId   `bson:"_id,omitempty"`
-	SiteID       bson.ObjectId   `bson:"siteId"`
-	Status       string          `bson:"status"`
-	Message      Message         `bson:"message"`
-	SendToAll    bool            `bson:"sendToAll"`
-	Segments     []bson.ObjectId `bson:"segments"`
-	Browsers     []Browser       `bson:"browsers"`
-	HideRule     HideRule        `bson:"hideRule"`
-	LaunchURL    string          `bson:"launchUrl"`
-	Priority     string          `bson:"priority"`
-	TTL          int             `bson:"ttl"`
-	TotalSent    int             `bson:"totalSent"`
-	TotalDeliver int             `bson:"totalDeliver"`
-	TotalShow    int             `bson:"totalShow"`
-	TotalError   int             `bson:"totalError"`
-	TotalClick   int             `bson:"totalClick"`
-	TotalClose   int             `bson:"totalClose"`
-	SentAt       time.Time       `bson:"sentAt"`
-	CreatedAt    time.Time       `bson:"createdAt"`
-	UpdatedAt    time.Time       `bson:"updatedAt"`
+	ID           primitive.ObjectID   `bson:"_id,omitempty"`
+	SiteID       primitive.ObjectID   `bson:"siteId"`
+	Status       string               `bson:"status"`
+	Message      Message              `bson:"message"`
+	SendToAll    bool                 `bson:"sendToAll"`
+	Segments     []primitive.ObjectID `bson:"segments"`
+	Browsers     []Browser            `bson:"browsers"`
+	HideRule     HideRule             `bson:"hideRule"`
+	LaunchURL    string               `bson:"launchUrl"`
+	Priority     string               `bson:"priority"`
+	TTL          int                  `bson:"ttl"`
+	TotalSent    int                  `bson:"totalSent"`
+	TotalDeliver int                  `bson:"totalDeliver"`
+	TotalShow    int                  `bson:"totalShow"`
+	TotalError   int                  `bson:"totalError"`
+	TotalClick   int                  `bson:"totalClick"`
+	TotalClose   int                  `bson:"totalClose"`
+	SentAt       time.Time            `bson:"sentAt"`
+	CreatedAt    time.Time            `bson:"createdAt"`
+	UpdatedAt    time.Time            `bson:"updatedAt"`
 }
 
 // GetNotificationObject Create a notification instance
-func GetNotificationObject(SiteID bson.ObjectId, title string) *Notification {
-	return &Notification{
+func GetNotificationObject(SiteID primitive.ObjectID, title string) Notification {
+	return Notification{
 		SiteID:       SiteID,
 		Status:       "pending",
 		Message:      Message{title, "Ignore please, load testing", "en"},

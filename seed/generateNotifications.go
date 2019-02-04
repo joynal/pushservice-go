@@ -10,7 +10,7 @@ import (
 	"github.com/globalsign/mgo/bson"
 )
 
-func main() {
+func GenerateNotifications() {
 	session, err := mgo.Dial("127.0.0.1")
 
 	if err != nil {
@@ -27,6 +27,7 @@ func main() {
 	notificationCollection := session.DB("mgo-test").C("notifications")
 
 	// create a site data
+	fmt.Println("Creating site ------->")
 	siteCollection.Insert(&models.Site{
 		ID:              SiteID,
 		VapidPublicKey:  privateKey,
@@ -36,12 +37,11 @@ func main() {
 	})
 
 	// create notifications
+	fmt.Println("Creating site ------->")
 	var notifications []interface{}
 	for i := 0; i < 10; i++ {
 		notifications = append(notifications, models.GetNotificationObject(SiteID, fmt.Sprintf("Load test - %d", i)))
 	}
 
 	notificationCollection.Insert(notifications...)
-
-	// TODO: create subscribers
 }
