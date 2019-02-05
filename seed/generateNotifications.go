@@ -1,47 +1,38 @@
 package main
 
-import (
-	"fmt"
-	"pushservice/models"
-	"pushservice/utils"
-	"time"
+// GenerateNotifications for generating notifications
+func main() {
+	// session, err := mgo.Dial("127.0.0.1")
 
-	"github.com/globalsign/mgo"
-	"github.com/globalsign/mgo/bson"
-)
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-func GenerateNotifications() {
-	session, err := mgo.Dial("127.0.0.1")
+	// defer session.Close()
+	// session.SetMode(mgo.Monotonic, true)
 
-	if err != nil {
-		panic(err)
-	}
+	// privateKey, publicKey, _ := utils.GenerateVapidKeys()
+	// SiteID := bson.NewObjectId()
 
-	defer session.Close()
-	session.SetMode(mgo.Monotonic, true)
+	// siteCollection := session.DB("mgo-test").C("sites")
+	// notificationCollection := session.DB("mgo-test").C("notifications")
 
-	privateKey, publicKey, _ := utils.GenerateVapidKeys()
-	SiteID := bson.NewObjectId()
+	// // create a site data
+	// fmt.Println("Creating site ------->")
+	// siteCollection.Insert(&models.Site{
+	// 	ID:              SiteID,
+	// 	VapidPublicKey:  privateKey,
+	// 	VapidPrivateKey: publicKey,
+	// 	CreatedAt:       time.Now(),
+	// 	UpdatedAt:       time.Now(),
+	// })
 
-	siteCollection := session.DB("mgo-test").C("sites")
-	notificationCollection := session.DB("mgo-test").C("notifications")
+	// // create notifications
+	// fmt.Println("Creating site ------->")
+	// var notifications []interface{}
+	// for i := 0; i < 10; i++ {
+	// 	notifications = append(notifications, models.GetNotificationObject(SiteID, fmt.Sprintf("Load test - %d", i)))
+	// }
 
-	// create a site data
-	fmt.Println("Creating site ------->")
-	siteCollection.Insert(&models.Site{
-		ID:              SiteID,
-		VapidPublicKey:  privateKey,
-		VapidPrivateKey: publicKey,
-		CreatedAt:       time.Now(),
-		UpdatedAt:       time.Now(),
-	})
-
-	// create notifications
-	fmt.Println("Creating site ------->")
-	var notifications []interface{}
-	for i := 0; i < 10; i++ {
-		notifications = append(notifications, models.GetNotificationObject(SiteID, fmt.Sprintf("Load test - %d", i)))
-	}
-
-	notificationCollection.Insert(notifications...)
+	// notificationCollection.Insert(notifications...)
 }
