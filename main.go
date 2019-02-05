@@ -8,6 +8,7 @@ import (
 	"pushservice/utils"
 	"time"
 
+	"github.com/mongodb/mongo-go-driver/bson/primitive"
 	"github.com/mongodb/mongo-go-driver/mongo"
 )
 
@@ -39,13 +40,13 @@ func main() {
 
 	fmt.Println("Site created successfully: ", insertResult.InsertedID)
 
-	var siteID = insertResult.InsertedID
+	siteID := insertResult.InsertedID
 
 	// create notifications
-	fmt.Println("Creating site ------->")
+	fmt.Println("Creating notifications ------->")
 	var notifications []interface{}
 	for i := 0; i < 10; i++ {
-		notifications = append(notifications, models.GetNotificationObject(siteID, fmt.Sprintf("Load test - %d", i)))
+		notifications = append(notifications, models.GetNotificationObject(siteID.(primitive.ObjectID), fmt.Sprintf("Load test - %d", i)))
 	}
 
 	insertManyResult, err := notificationCollection.InsertMany(context.TODO(), notifications)
