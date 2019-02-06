@@ -21,7 +21,7 @@ type Subscriber struct {
 	Country        string
 	Language       string
 	DeviceType     string `bson:"deviceType"`
-	os             string
+	Os             string
 	IP             string
 	Browser        string
 	BrowserVersion string               `bson:"browserVersion"`

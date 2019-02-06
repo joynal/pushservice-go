@@ -1,38 +1,31 @@
-package main
+package seed
 
-// GenerateNotifications for generating notifications
-func main() {
-	// session, err := mgo.Dial("127.0.0.1")
+import (
+	"context"
+	"fmt"
+	"log"
+	"pushservice/models"
+	"time"
 
-	// if err != nil {
-	// 	panic(err)
-	// }
+	"github.com/mongodb/mongo-go-driver/bson/primitive"
+	"github.com/mongodb/mongo-go-driver/mongo"
+)
 
-	// defer session.Close()
-	// session.SetMode(mgo.Monotonic, true)
+// GenerateNotifications will generate notifications for site
+func GenerateNotifications(client *mongo.Client, siteID primitive.ObjectID) {
+	notificationCollection := client.Database("pushservice").Collection("notifications")
 
-	// privateKey, publicKey, _ := utils.GenerateVapidKeys()
-	// SiteID := bson.NewObjectId()
+	fmt.Println("Creating notifications ------->", time.Now())
 
-	// siteCollection := session.DB("mgo-test").C("sites")
-	// notificationCollection := session.DB("mgo-test").C("notifications")
+	var notifications []interface{}
+	for i := 0; i < 10; i++ {
+		notifications = append(notifications, models.GetNotificationObject(siteID, fmt.Sprintf("Load test - %d", i)))
+	}
 
-	// // create a site data
-	// fmt.Println("Creating site ------->")
-	// siteCollection.Insert(&models.Site{
-	// 	ID:              SiteID,
-	// 	VapidPublicKey:  privateKey,
-	// 	VapidPrivateKey: publicKey,
-	// 	CreatedAt:       time.Now(),
-	// 	UpdatedAt:       time.Now(),
-	// })
+	insertManyResult, err := notificationCollection.InsertMany(context.TODO(), notifications)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	// // create notifications
-	// fmt.Println("Creating site ------->")
-	// var notifications []interface{}
-	// for i := 0; i < 10; i++ {
-	// 	notifications = append(notifications, models.GetNotificationObject(SiteID, fmt.Sprintf("Load test - %d", i)))
-	// }
-
-	// notificationCollection.Insert(notifications...)
+	fmt.Println("Notifications ids: ", insertManyResult.InsertedIDs)
 }
