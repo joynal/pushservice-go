@@ -2,6 +2,14 @@
 
 
 [[projects]]
+  digest = "1:86909a5b1e4522ad763f86327cfa65e51d7eb838d4adb3d6f68069fede181122"
+  name = "github.com/corpix/uarand"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "37c9140f52f6bf4998ff7617c456d554d6a2dc2f"
+  version = "v0.0.0"
+
+[[projects]]
   branch = "master"
   digest = "1:3cddf85fd6a84aacdf3945bc449d074ea5b930c0a1cba7588b812e4380f7653a"
   name = "github.com/enceve/crypto"
@@ -24,6 +32,14 @@
   packages = ["."]
   pruneopts = "UT"
   revision = "2e65f85255dbc3072edf28d6b5b8efc472979f5a"
+
+[[projects]]
+  branch = "master"
+  digest = "1:22725c01ecd8ed0c0f0078944305a57053340d92878b02db925c660cc4accf64"
+  name = "github.com/icrowley/fake"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "4178557ae428460c3780a381c824a1f3aceb6325"
 
 [[projects]]
   digest = "1:9be9701967c831fb40a4b8b35c474b0a6e3af1f68ac35ad5fde6c44d71cbf4d1"
@@ -119,6 +135,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/enceve/crypto/dh/ecdh",
+    "github.com/icrowley/fake",
     "github.com/mongodb/mongo-go-driver/bson/primitive",
     "github.com/mongodb/mongo-go-driver/mongo",
   ]
