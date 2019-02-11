@@ -21,7 +21,7 @@ func main() {
 
 	siteID := seed.GenerateSite(client)
 
-	// seed.GenerateNotifications(client, siteID)
+	seed.GenerateNotifications(client, siteID)
 
 	seed.GenerateSubscribers(client, siteID)
 }
