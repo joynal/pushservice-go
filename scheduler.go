@@ -4,66 +4,60 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 	"pushservice/models"
+	"pushservice/utils"
 
-	"github.com/globalsign/mgo/bson"
-	"github.com/mongodb/mongo-go-driver/bson/primitive"
-	"github.com/mongodb/mongo-go-driver/mongo"
-	"github.com/mongodb/mongo-go-driver/mongo/options"
+	"github.com/joho/godotenv"
+	"github.com/mongodb/mongo-go-driver/bson"
 )
 
 func main() {
-	client, err := mongo.Connect(context.TODO(), "mongodb://localhost:27017")
-	defer client.Disconnect(context.TODO())
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
 
+	err := godotenv.Load()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Error loading .env file")
+	}
+
+	ctx = context.WithValue(ctx, utils.DbURL, os.Getenv("MONGODB_URL"))
+	db, err := utils.ConfigDB(ctx, "pushservice")
+	if err != nil {
+		log.Fatalf("database configuration failed: %v", err)
 	}
 
 	fmt.Println("Connected to MongoDB!")
 
-	siteID, _ := primitive.ObjectIDFromHex("5c5b9ee1752a41a63268c3bb")
+	var site models.Site
 
-	// var site models.Site
-	// filter := bson.D{{"_id", siteID}}
+	err = db.Collection("sites").FindOne(ctx, bson.D{}).Decode(&site)
 
-	// siteCollection := client.Database("pushservice").Collection("sites")
-	// err = siteCollection.FindOne(context.TODO(), filter).Decode(&site)
-
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// fmt.Printf("Found a single document: %+v\n", site)
-
-	// Finding multiple documents returns a cursor
-	notificationCollection := client.Database("pushservice").Collection("notifications")
-	findOptions := options.Find()
-	findOptions.SetLimit(2)
-
-	var results []*models.Site
-
-	cur, err := notificationCollection.Find(context.TODO(), bson.D{{"siteId", siteID}}, findOptions)
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	// Finding multiple documents returns a cursor
+	cur, err := db.Collection("notifications").Find(ctx, bson.D{{"siteId", site.ID}})
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Close the cursor once finished
+	defer cur.Close(ctx)
+
 	// Iterate through the cursor
-	for cur.Next(context.TODO()) {
-		var elem models.Site
+	for cur.Next(ctx) {
+		var elem models.Notification
 		err := cur.Decode(&elem)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		results = append(results, &elem)
+		fmt.Println(elem.Message.Title)
 	}
 
 	if err := cur.Err(); err != nil {
 		log.Fatal(err)
 	}
-
-	// Close the cursor once finished
-	cur.Close(context.TODO())
-	fmt.Printf("Found multiple documents (array of pointers): %+v\n", results)
 }

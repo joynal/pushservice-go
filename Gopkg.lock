@@ -42,6 +42,14 @@
   revision = "4178557ae428460c3780a381c824a1f3aceb6325"
 
 [[projects]]
+  digest = "1:ecd9aa82687cf31d1585d4ac61d0ba180e42e8a6182b85bd785fcca8dfeefc1b"
+  name = "github.com/joho/godotenv"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "23d116af351c84513e1946b527c88823e476be13"
+  version = "v1.3.0"
+
+[[projects]]
   digest = "1:9be9701967c831fb40a4b8b35c474b0a6e3af1f68ac35ad5fde6c44d71cbf4d1"
   name = "github.com/mongodb/mongo-go-driver"
   packages = [
@@ -136,6 +144,7 @@
   input-imports = [
     "github.com/enceve/crypto/dh/ecdh",
     "github.com/icrowley/fake",
+    "github.com/joho/godotenv",
     "github.com/mongodb/mongo-go-driver/bson/primitive",
     "github.com/mongodb/mongo-go-driver/mongo",
   ]
