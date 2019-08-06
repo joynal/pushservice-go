@@ -13,13 +13,13 @@ import (
 
 // GenerateNotifications will generate notifications for site
 func GenerateNotifications(client *mongo.Client, siteID primitive.ObjectID) {
-	notificationCollection := client.Database("pushservice").Collection("notifications")
+	notificationCollection := client.Database("pushservice").Collection("pushes")
 
 	fmt.Println("Creating notifications ------->", time.Now())
 
 	var notifications []interface{}
 	for i := 0; i < 10; i++ {
-		notifications = append(notifications, models.GetNotificationObject(siteID, fmt.Sprintf("Load test - %d", i)))
+		notifications = append(notifications, models.GetPushObject(siteID, fmt.Sprintf("Load test - %d", i)))
 	}
 
 	insertManyResult, err := notificationCollection.InsertMany(context.TODO(), notifications)

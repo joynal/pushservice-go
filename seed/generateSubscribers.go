@@ -1,19 +1,18 @@
 package seed
 
 import (
-	"context"
-	"encoding/json"
-	"fmt"
-	"log"
-	"math/rand"
-	"pushservice-go/models"
-	"pushservice-go/utils"
-	"strings"
-	"time"
+  "context"
+  "encoding/json"
+  "fmt"
+  "log"
+  "math/rand"
+  "pushservice-go/models"
+  "pushservice-go/utils"
+  "strings"
+  "time"
 
-	"github.com/icrowley/fake"
-	"github.com/mongodb/mongo-go-driver/bson/primitive"
-	"github.com/mongodb/mongo-go-driver/mongo"
+  "github.com/mongodb/mongo-go-driver/bson/primitive"
+  "github.com/mongodb/mongo-go-driver/mongo"
 )
 
 // GenerateSubscribers will generate subscribers for site
@@ -51,21 +50,8 @@ func GenerateSubscribers(client *mongo.Client, siteID primitive.ObjectID) {
 
 		subscribers = append(subscribers, models.Subscriber{
 			SiteID:         siteID,
-			IsActive:       true,
-			IsSubscribed:   true,
-			Token:          newsubscriberToken,
+			Subscribed:   true,
 			PushEndpoint:   string(pushEndpoint),
-			LastActive:     time.Now(),
-			FirstSession:   time.Now(),
-			SessionCount:   9,
-			Timezone:       "",
-			Country:        fake.Country(),
-			Language:       fake.Language(),
-			DeviceType:     "",
-			Os:             "",
-			IP:             fake.IPv4(),
-			Browser:        browser,
-			BrowserVersion: "",
 			CreatedAt:      time.Now(),
 			UpdatedAt:      time.Now(),
 		})
