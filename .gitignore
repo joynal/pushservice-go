@@ -1,2 +1,12 @@
 vendor
 .idea
+.serverless
+node_modules
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+*.swp
