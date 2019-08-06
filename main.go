@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"pushservice/seed"
+	"pushservice-go/seed"
 
 	"github.com/mongodb/mongo-go-driver/mongo"
 )

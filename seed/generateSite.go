@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"pushservice/models"
-	"pushservice/utils"
+	"pushservice-go/models"
+	"pushservice-go/utils"
 	"time"
 
 	"github.com/mongodb/mongo-go-driver/bson/primitive"

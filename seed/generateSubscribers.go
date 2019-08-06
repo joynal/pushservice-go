@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
-	"pushservice/models"
-	"pushservice/utils"
+	"pushservice-go/models"
+	"pushservice-go/utils"
 	"strings"
 	"time"
 
