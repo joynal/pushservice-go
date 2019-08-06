@@ -1,4 +1,4 @@
-# Parser
+# Pushservice golang implementation
 
 ## Generate binary for linux
 
