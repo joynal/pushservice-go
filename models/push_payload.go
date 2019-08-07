@@ -28,6 +28,6 @@ type PushOption struct {
 type PushPayload struct {
   SubscriberID           primitive.ObjectID `bson:"subscriberId,omitempty"`
   PushEndpoint string    `bson:"pushEndPoint"`
-  data DataPayload
-  options PushOption
+  Data DataPayload
+  Options PushOption
 }

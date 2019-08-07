@@ -10,6 +10,14 @@
   version = "v1.4.1"
 
 [[projects]]
+  digest = "1:bf352d7906418306b207809a24391893d212f3bfaee53b93044084bb9ae930c4"
+  name = "github.com/SherClockHolmes/webpush-go"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "7ed4780304f15dd5a2f5c9e316ce79e9f1c1b6d2"
+  version = "v1.1.0"
+
+[[projects]]
   digest = "1:eb44ca0314e275df1bf81bdc59fe1a122186d24f172be84077b40d34d93c6f56"
   name = "github.com/Shopify/sarama"
   packages = ["."]
@@ -24,6 +32,14 @@
   pruneopts = "UT"
   revision = "8991bc29aa16c548c550c7ff78260e27b9ab7c73"
   version = "v1.1.1"
+
+[[projects]]
+  digest = "1:76dc72490af7174349349838f2fe118996381b31ea83243812a97e5a0fd5ed55"
+  name = "github.com/dgrijalva/jwt-go"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "06ea1031745cb8b3dab3f6a236daf2b0aa468b7e"
+  version = "v3.2.0"
 
 [[projects]]
   digest = "1:1f0c7ab489b407a7f8f9ad16c25a504d28ab461517a971d341388a56156c1bd7"
@@ -176,10 +192,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:c15a49f5ee9caf3d032980d7ff388d9ccccb26107a02373e64128416694169c3"
+  digest = "1:8f53eaf001472281e0b0cdb0f636cd475168387a5f14dd3c98a2dec4fd88cce9"
   name = "golang.org/x/crypto"
   packages = [
     "curve25519",
+    "hkdf",
     "md4",
     "pbkdf2",
   ]
@@ -290,11 +307,14 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/SherClockHolmes/webpush-go",
     "github.com/Shopify/sarama",
     "github.com/enceve/crypto/dh/ecdh",
     "github.com/joho/godotenv",
+    "github.com/mongodb/mongo-go-driver/bson",
     "github.com/mongodb/mongo-go-driver/bson/primitive",
     "github.com/mongodb/mongo-go-driver/mongo",
+    "github.com/xdg/scram",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
