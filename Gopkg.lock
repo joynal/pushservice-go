@@ -18,13 +18,6 @@
   version = "v1.23.1"
 
 [[projects]]
-  digest = "1:b06d27db2f87588507f245345f329b4192809e72ab32385a26a6eb25988eb82e"
-  name = "github.com/corpix/uarand"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "031be390f409fb4bac8fb299e3bcd101479f89f8"
-
-[[projects]]
   digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
@@ -87,14 +80,6 @@
   pruneopts = "UT"
   revision = "4f571afc59f3043a65f8fe6bf46d887b10a01d43"
   version = "v1.0.1"
-
-[[projects]]
-  branch = "master"
-  digest = "1:22725c01ecd8ed0c0f0078944305a57053340d92878b02db925c660cc4accf64"
-  name = "github.com/icrowley/fake"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "4178557ae428460c3780a381c824a1f3aceb6325"
 
 [[projects]]
   digest = "1:ae221758bdddd57f5c76f4ee5e4110af32ee62583c46299094697f8f127e63da"
@@ -307,7 +292,6 @@
   input-imports = [
     "github.com/Shopify/sarama",
     "github.com/enceve/crypto/dh/ecdh",
-    "github.com/icrowley/fake",
     "github.com/joho/godotenv",
     "github.com/mongodb/mongo-go-driver/bson/primitive",
     "github.com/mongodb/mongo-go-driver/mongo",
