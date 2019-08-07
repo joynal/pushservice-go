@@ -1,6 +1,7 @@
 package main
 
 import (
+  "log"
   "os"
   "sync"
 
@@ -30,6 +31,10 @@ func (h consumerGroupHandler) ConsumeClaim(sess sarama.ConsumerGroupSession, cla
   wg.Wait()
 
   return nil
+}
+
+func init() {
+  sarama.Logger = log.New(os.Stdout, "[Sarama] ", log.LstdFlags)
 }
 
 func main() {
