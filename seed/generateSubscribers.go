@@ -40,8 +40,8 @@ func GenerateSubscribers(client *mongo.Client, siteID primitive.ObjectID) {
 		index := r.Intn(len(browsers))
 		browser := browsers[index]
 		token, _ := utils.GenerateRandomString(56)
-		newsubscriberToken := strings.Replace(subscriberToken, "APA91bESNu5qsIA484DSFWyuDLEgMHdAJf45IwMua9lknXrhAzQCrLcN", token, -1)
-		endpoint := fmt.Sprintf("%s%s", endpoints[browser], newsubscriberToken)
+		newSubscriberToken := strings.Replace(subscriberToken, "APA91bESNu5qsIA484DSFWyuDLEgMHdAJf45IwMua9lknXrhAzQCrLcN", token, -1)
+		endpoint := fmt.Sprintf("%s%s", endpoints[browser], newSubscriberToken)
 		pushEndpoint, _ := json.Marshal(models.PushEndPoint{
 			Endpoint:       endpoint,
 			ExpirationTime: nil,
@@ -57,7 +57,7 @@ func GenerateSubscribers(client *mongo.Client, siteID primitive.ObjectID) {
 		})
 
 		if i == batch {
-			subscriberCollection.InsertMany(context.TODO(), subscribers)
+      _, _ = subscriberCollection.InsertMany(context.TODO(), subscribers)
 			subscribers = nil
 		}
 	}
