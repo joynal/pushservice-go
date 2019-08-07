@@ -2,7 +2,8 @@ package utils
 
 import (
 	"context"
-	"log"
+  "crypto/tls"
+  "log"
 	"os"
 	"strconv"
 	"strings"
@@ -10,7 +11,7 @@ import (
 	"github.com/Shopify/sarama"
 )
 
-func GetNewConsumerGroup(name string, topic string, handler sarama.ConsumerGroupHandler) {
+func GetConsumer(groupId string, topic string, handler sarama.ConsumerGroupHandler) {
 	LoadConfigs()
 
 	brokerList := strings.Split(os.Getenv("KAFKA_BROKERS"), ",")
@@ -18,7 +19,24 @@ func GetNewConsumerGroup(name string, topic string, handler sarama.ConsumerGroup
 	config.Version = sarama.V2_1_0_0
 	config.Consumer.Return.Errors, _ = strconv.ParseBool(os.Getenv("CONSUMER_RETRY_RETURN_SUCCESSES"))
 
-	client, err := sarama.NewConsumerGroup(brokerList, name, config)
+	kafkaSecurity, err := strconv.ParseBool(os.Getenv("KAFKA_SECURITY_ENABLED"))
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  if kafkaSecurity == true {
+    config.Net.SASL.User = os.Getenv("KAFKA_USERNAME")
+    config.Net.SASL.Password = os.Getenv("KAFKA_PASSWORD")
+    config.Net.SASL.Handshake = true
+    config.Net.SASL.Enable = true
+    config.Net.TLS.Enable = true
+    config.Net.TLS.Config = &tls.Config{
+      InsecureSkipVerify: true,
+      ClientAuth: 0,
+    }
+  }
+
+	client, err := sarama.NewConsumerGroup(brokerList, groupId, config)
 	if err != nil {
 		log.Fatal(err)
 	}

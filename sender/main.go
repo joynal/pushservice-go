@@ -34,5 +34,5 @@ func (h consumerGroupHandler) ConsumeClaim(sess sarama.ConsumerGroupSession, cla
 
 func main() {
   utils.LoadConfigs()
-  utils.GetNewConsumerGroup("SenderGroup", os.Getenv("TOPIC_PUSH"), consumerGroupHandler{})
+  utils.GetConsumer("SenderGroup", os.Getenv("TOPIC_PUSH"), consumerGroupHandler{})
 }

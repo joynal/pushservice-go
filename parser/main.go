@@ -1,18 +1,10 @@
 package parser
 
 import (
-  "context"
-  "log"
-  "os"
-  "strconv"
-  "strings"
-  "sync"
-
-  "go-kafka-example/utils"
-
   "github.com/Shopify/sarama"
-  "github.com/joho/godotenv"
-
+  "os"
+  "pushservice-go/utils"
+  "sync"
 )
 
 const (
@@ -39,35 +31,6 @@ func (h consumerGroupHandler) ConsumeClaim(sess sarama.ConsumerGroupSession, cla
 }
 
 func main() {
-  err := godotenv.Load()
-  if err != nil {
-    log.Fatal(err)
-  }
-
-  brokerList := strings.Split(os.Getenv("KAFKA_SERVER_URL"), ",")
-  groupId := "ParserGroup"
-
-  config := sarama.NewConfig()
-  config.Version = sarama.V2_1_0_0
-  config.Consumer.Return.Errors, _ = strconv.ParseBool(os.Getenv("CONSUMER_RETRY_RETURN_SUCCESSES"))
-  group, err := sarama.NewConsumerGroup(brokerList, groupId, config)
-  if err != nil {
-    log.Fatal(err)
-  }
-  defer group.Close()
-
-  // Track errors
-  go func() {
-    for err := range group.Errors() {
-      log.Fatal(err)
-    }
-  }()
-
-  ctx := context.Background()
-  for {
-    err = group.Consume(ctx, []string{os.Getenv("TOPIC_RAW_PUSH")}, consumerGroupHandler{})
-    if err != nil {
-      panic(err)
-    }
-  }
+  utils.LoadConfigs()
+  utils.GetConsumer("ParserGroup", os.Getenv("TOPIC_RAW_PUSH"), consumerGroupHandler{})
 }
