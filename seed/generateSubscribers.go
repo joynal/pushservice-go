@@ -1,18 +1,18 @@
 package seed
 
 import (
-  "context"
-  "encoding/json"
-  "fmt"
-  "log"
-  "math/rand"
-  "pushservice-go/models"
-  "pushservice-go/utils"
-  "strings"
-  "time"
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"math/rand"
+	"pushservice-go/models"
+	"pushservice-go/utils"
+	"strings"
+	"time"
 
-  "github.com/mongodb/mongo-go-driver/bson/primitive"
-  "github.com/mongodb/mongo-go-driver/mongo"
+	"github.com/mongodb/mongo-go-driver/bson/primitive"
+	"github.com/mongodb/mongo-go-driver/mongo"
 )
 
 // GenerateSubscribers will generate subscribers for site
@@ -49,15 +49,15 @@ func GenerateSubscribers(client *mongo.Client, siteID primitive.ObjectID) {
 		})
 
 		subscribers = append(subscribers, models.Subscriber{
-			SiteID:         siteID,
+			SiteID:       siteID,
 			Subscribed:   true,
-			PushEndpoint:   string(pushEndpoint),
-			CreatedAt:      time.Now(),
-			UpdatedAt:      time.Now(),
+			PushEndpoint: string(pushEndpoint),
+			CreatedAt:    time.Now(),
+			UpdatedAt:    time.Now(),
 		})
 
 		if i == batch {
-      _, _ = subscriberCollection.InsertMany(context.TODO(), subscribers)
+			_, _ = subscriberCollection.InsertMany(context.TODO(), subscribers)
 			subscribers = nil
 		}
 	}

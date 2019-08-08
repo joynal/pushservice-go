@@ -25,6 +25,7 @@ type Option struct {
   RequireInteraction bool `bson:"requireInteraction"`
   Dir                string
   Tag                string
+  Actions            Action
 }
 
 // Push model
@@ -61,7 +62,7 @@ func GetPushObject(SiteID primitive.ObjectID, title string) Push {
     Options:      Option{Body: "Ignore please, load testing"},
     LaunchURL:    "https://joynal.me",
     Priority:     "high",
-    TimeToLive:          259200,
+    TimeToLive:   259200,
     TotalSent:    0,
     TotalDeliver: 0,
     TotalClick:   0,

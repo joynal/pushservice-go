@@ -19,11 +19,11 @@ func GenerateSite(client *mongo.Client) primitive.ObjectID {
 	siteCollection := client.Database("pushservice").Collection("sites")
 
 	insertResult, err := siteCollection.InsertOne(context.TODO(), models.Site{
-	  Subject: "https://joynal.dev",
-		PrivateKey:  privateKey,
-		PublicKey: publicKey,
-		CreatedAt:       time.Now(),
-		UpdatedAt:       time.Now(),
+		Subject:    "https://joynal.dev",
+		PrivateKey: privateKey,
+		PublicKey:  publicKey,
+		CreatedAt:  time.Now(),
+		UpdatedAt:  time.Now(),
 	})
 
 	if err != nil {

@@ -1,10 +1,10 @@
 package seed
 
 import (
-  "context"
-  "fmt"
-  "github.com/mongodb/mongo-go-driver/mongo"
-  "log"
+	"context"
+	"fmt"
+	"github.com/mongodb/mongo-go-driver/mongo"
+	"log"
 )
 
 func main() {
