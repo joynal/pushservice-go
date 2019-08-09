@@ -34,8 +34,6 @@ func sendPush(
 		log.Fatal(err)
 	}
 
-	fmt.Println("record: ", string(msg.Value))
-
 	// Decode subscription
 	s := &webpush.Subscription{}
 	err = json.Unmarshal([]byte(push.PushEndpoint), s)
@@ -60,7 +58,9 @@ func sendPush(
 		fmt.Println("send err:", err)
 	}
 
-	if res.StatusCode == 410 {
+	fmt.Println("res: ", res)
+
+	if res != nil && res.StatusCode == 410 {
 		fmt.Println("webpush error:", err)
 		_, err = coll.UpdateOne(
 			ctx,

@@ -3,6 +3,7 @@ package main
 import (
   "context"
   "fmt"
+  "github.com/mongodb/mongo-go-driver/mongo"
   "log"
   "os"
   "sync"
@@ -22,20 +23,6 @@ func init() {
 
 func main() {
   utils.LoadConfigs()
-  utils.GetConsumer("SenderGroup", os.Getenv("TOPIC_PUSH"), consumer{})
-}
-
-type consumer struct {
-  ready chan bool
-}
-
-func (consumer) Setup(_ sarama.ConsumerGroupSession) error {
-
-  return nil
-}
-func (consumer) Cleanup(_ sarama.ConsumerGroupSession) error { return nil }
-func (h consumer) ConsumeClaim(sess sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) error {
-  utils.LoadConfigs()
 
   dbUrl := os.Getenv("MONGODB_URL")
   dbName := os.Getenv("DB_NAME")
@@ -54,12 +41,29 @@ func (h consumer) ConsumeClaim(sess sarama.ConsumerGroupSession, claim sarama.Co
   fmt.Println("Connected to MongoDB!")
   coll := db.Collection("subscribers")
 
+  consumer := Consumer{
+    coll: *coll,
+    ctx: ctx,
+  }
+
+  // consuming
+  utils.GetConsumer("SenderGroup", os.Getenv("TOPIC_PUSH"), consumer)
+}
+
+type Consumer struct {
+  coll mongo.Collection
+  ctx context.Context
+}
+
+func (consumer Consumer) Setup(_ sarama.ConsumerGroupSession) error { return nil }
+func (consumer Consumer) Cleanup(_ sarama.ConsumerGroupSession) error { return nil }
+func (consumer Consumer) ConsumeClaim(sess sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) error {
   var wg sync.WaitGroup
   maxChan := make(chan bool, maxConcurrency)
 
   for msg := range claim.Messages() {
     maxChan <- true
-    go sendPush(msg, sess, maxChan, &wg, *coll, ctx)
+    go sendPush(msg, sess, maxChan, &wg, consumer.coll, consumer.ctx)
   }
   wg.Wait()
 

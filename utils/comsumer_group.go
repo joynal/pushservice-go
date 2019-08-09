@@ -7,8 +7,9 @@ import (
 	"os"
 	"strconv"
 	"strings"
+  "time"
 
-	"github.com/Shopify/sarama"
+  "github.com/Shopify/sarama"
 )
 
 func GetConsumer(groupId string, topic string, handler sarama.ConsumerGroupHandler) {
@@ -25,6 +26,8 @@ func GetConsumer(groupId string, topic string, handler sarama.ConsumerGroupHandl
 	}
 
 	if kafkaSecurity == true {
+	  config.ClientID = "push-service"
+	  config.Net.KeepAlive = 1 * time.Hour
 		config.Net.TLS.Enable = true
 		config.Net.SASL.Enable = true
 		config.Net.SASL.Handshake = true

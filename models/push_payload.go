@@ -17,7 +17,7 @@ type DataPayload struct {
 	RequireInteraction bool `bson:"requireInteraction"`
 	Dir                string
 	Tag                string
-  Actions            Action
+  Actions            []Action
 }
 
 type PushOption struct {
