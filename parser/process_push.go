@@ -21,7 +21,7 @@ func processPush(
   sess.MarkMessage(msg, "")
 
 	// construct struct from byte
-	var push models.Push
+	var push models.RawPushPayload
 	err := json.Unmarshal(msg.Value, &push)
 	if err != nil {
 		log.Fatal(err)

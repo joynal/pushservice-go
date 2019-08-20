@@ -15,3 +15,9 @@ type Site struct {
 	CreatedAt  time.Time `bson:"createdAt"`
 	UpdatedAt  time.Time `bson:"updatedAt"`
 }
+
+type SitePayload struct {
+  Subject    string
+  PublicKey  string    `bson:"publicKey"`
+  PrivateKey string    `bson:"privateKey"`
+}

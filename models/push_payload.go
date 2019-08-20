@@ -21,7 +21,7 @@ type DataPayload struct {
 }
 
 type PushOption struct {
-	VapidDetails Site `bson:"vapidDetails"`
+	VapidDetails VapidDetails `bson:"vapidDetails"`
 	TTL          int  `bson:"timeToLive"`
 }
 
