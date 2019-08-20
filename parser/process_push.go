@@ -1,18 +1,24 @@
 package main
 
 import (
-	"encoding/json"
-	"github.com/Shopify/sarama"
-	"log"
-	"sync"
-
-	"pushservice-go/models"
+  "context"
+  "encoding/json"
+  "github.com/Shopify/sarama"
+  "github.com/mongodb/mongo-go-driver/mongo"
+  "log"
+  "pushservice-go/models"
 )
 
-func processPush(msg *sarama.ConsumerMessage, sess sarama.ConsumerGroupSession, maxChan chan bool, wg *sync.WaitGroup) {
-	wg.Add(1)
-	defer wg.Done()
+func processPush(
+  msg *sarama.ConsumerMessage,
+  sess sarama.ConsumerGroupSession,
+  maxChan chan bool,
+  coll mongo.Collection,
+  ctx context.Context) {
 	defer func(maxChan chan bool) { <-maxChan }(maxChan)
+
+  // commit kafka message
+  sess.MarkMessage(msg, "")
 
 	// construct struct from byte
 	var push models.Push
@@ -20,7 +26,4 @@ func processPush(msg *sarama.ConsumerMessage, sess sarama.ConsumerGroupSession, 
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	// commit kafka message
-	sess.MarkMessage(msg, "")
 }

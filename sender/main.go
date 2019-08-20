@@ -6,8 +6,6 @@ import (
   "github.com/mongodb/mongo-go-driver/mongo"
   "log"
   "os"
-  "sync"
-
   "pushservice-go/utils"
 
   "github.com/Shopify/sarama"
@@ -58,14 +56,12 @@ type Consumer struct {
 func (consumer Consumer) Setup(_ sarama.ConsumerGroupSession) error { return nil }
 func (consumer Consumer) Cleanup(_ sarama.ConsumerGroupSession) error { return nil }
 func (consumer Consumer) ConsumeClaim(sess sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) error {
-  var wg sync.WaitGroup
   maxChan := make(chan bool, maxConcurrency)
 
   for msg := range claim.Messages() {
     maxChan <- true
-    go sendPush(msg, sess, maxChan, &wg, consumer.coll, consumer.ctx)
+    go sendPush(msg, sess, maxChan, consumer.coll, consumer.ctx)
   }
-  wg.Wait()
 
   return nil
 }

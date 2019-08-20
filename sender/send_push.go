@@ -1,27 +1,23 @@
 package main
 
 import (
-	"context"
-	"encoding/json"
-	"fmt"
-	"github.com/SherClockHolmes/webpush-go"
-	"github.com/Shopify/sarama"
-	"github.com/mongodb/mongo-go-driver/bson"
-	"github.com/mongodb/mongo-go-driver/mongo"
-	"log"
-	"pushservice-go/models"
-	"sync"
+  "context"
+  "encoding/json"
+  "fmt"
+  "github.com/SherClockHolmes/webpush-go"
+  "github.com/Shopify/sarama"
+  "github.com/mongodb/mongo-go-driver/bson"
+  "github.com/mongodb/mongo-go-driver/mongo"
+  "log"
+  "pushservice-go/models"
 )
 
 func sendPush(
 	msg *sarama.ConsumerMessage,
 	sess sarama.ConsumerGroupSession,
 	maxChan chan bool,
-	wg *sync.WaitGroup,
 	coll mongo.Collection,
 	ctx context.Context) {
-	wg.Add(1)
-	defer wg.Done()
 	defer func(maxChan chan bool) { <-maxChan }(maxChan)
 
 	// commit kafka message
