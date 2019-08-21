@@ -61,7 +61,7 @@ func (consumer Consumer) Setup(_ sarama.ConsumerGroupSession) error   { return n
 func (consumer Consumer) Cleanup(_ sarama.ConsumerGroupSession) error { return nil }
 func (consumer Consumer) ConsumeClaim(sess sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) error {
   for msg := range claim.Messages() {
-    processPush(msg, sess, consumer.maxChan, consumer.db, consumer.ctx, consumer.producer)
+    processPush(msg, sess, consumer.db, consumer.ctx, consumer.producer)
   }
 
   return nil

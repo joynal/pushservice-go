@@ -18,7 +18,6 @@ import (
 func processPush(
 	msg *sarama.ConsumerMessage,
 	sess sarama.ConsumerGroupSession,
-	maxChan chan bool,
 	db mongo.Database,
 	ctx context.Context,
 	producer sarama.SyncProducer) {
