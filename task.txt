@@ -17,3 +17,6 @@
     - research about article title
     - outlines
     - gather assets, images
+
+- Fix errors:
+    - dial tcp: lookup too many open files

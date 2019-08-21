@@ -53,6 +53,8 @@ func sendPush(
 	if err != nil {
 		fmt.Println("send err:", err)
 	}
+
+	fmt.Println("res: ", res)
 	
 	if res != nil && res.StatusCode == 410 {
 		fmt.Println("webpush error:", err)
