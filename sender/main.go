@@ -60,7 +60,7 @@ func (consumer Consumer) ConsumeClaim(sess sarama.ConsumerGroupSession, claim sa
 
   for msg := range claim.Messages() {
     maxChan <- true
-    go sendPush(msg, sess, maxChan, consumer.coll, consumer.ctx)
+    sendPush(msg, sess, maxChan, consumer.coll, consumer.ctx)
   }
 
   return nil

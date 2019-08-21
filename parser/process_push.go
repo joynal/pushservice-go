@@ -26,8 +26,6 @@ func processPush(
   // commit kafka message
   sess.MarkMessage(msg, "")
 
-  fmt.Print("record: ", string(msg.Value))
-
   // construct struct from byte
   var push models.RawPushPayload
   err := json.Unmarshal(msg.Value, &push)
@@ -37,8 +35,8 @@ func processPush(
 
   // Lets prepare subscriber query
   query := bson.M{
+    "subscribed": true,
     "siteId": push.SiteID,
-    "status": "subscribed",
   }
 
   // find subscribers and
@@ -55,18 +53,16 @@ func processPush(
 
   // Iterate through the cursor
   for cur.Next(ctx) {
-    var elem models.Subscriber
-    err := cur.Decode(&elem)
+    var subscriber models.Subscriber
+    err := cur.Decode(&subscriber)
     if err != nil {
       log.Fatalln("encode err:", err)
     }
 
-    fmt.Println("subscriberId: ", elem.ID)
-
     wg.Add(1)
     go sendToTopic(models.PushPayload{
-      SubscriberID: elem.ID,
-      PushEndpoint: elem.PushEndpoint,
+      SubscriberID: subscriber.ID,
+      PushEndpoint: subscriber.PushEndpoint,
       Data: models.DataPayload{
         ID:                 push.ID,
         LaunchURL:          push.LaunchURL,
@@ -97,13 +93,19 @@ func processPush(
   }
 
   // update notification stats
-  updateQuery := bson.M{
+  update := bson.M{
     "status": "done",
     "updatedAt": time.Now(),
     "totalSent": push.TotalSent + counter,
   }
 
-  _, _ = db.Collection("pushes").UpdateOne(ctx, bson.M{"_id": push.ID}, bson.M{"$set": updateQuery})
+  res, err := db.Collection("pushes").UpdateOne(ctx, bson.M{"_id": push.ID}, bson.M{"$set": update})
+
+  if err != nil {
+    log.Fatalln("update err:", err)
+  }
+
+  fmt.Println("res: ", res)
 }
 
 func sendToTopic(data models.PushPayload, producer sarama.SyncProducer, wg *sync.WaitGroup) {
@@ -115,8 +117,8 @@ func sendToTopic(data models.PushPayload, producer sarama.SyncProducer, wg *sync
   }
   partition, offset, err := producer.SendMessage(msg)
   if err != nil {
-    log.Println("send error ------------->", err)
+    fmt.Println("send error: ", err)
   }
 
-  log.Printf("sent at -------------> %s/partition - %d/offset - %d\n", os.Getenv("TOPIC_PUSH"), partition, offset)
+  fmt.Printf("sent at: %s/partition - %d/offset - %d\n", os.Getenv("TOPIC_PUSH"), partition, offset)
 }

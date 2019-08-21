@@ -30,7 +30,7 @@ type Option struct {
 
 // Push model
 type Push struct {
-  ID     primitive.ObjectID `bson:"_id,omitempty"`
+  ID     primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
   SiteID primitive.ObjectID `bson:"siteId"`
   Status string
 

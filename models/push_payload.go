@@ -5,7 +5,7 @@ import (
 )
 
 type DataPayload struct {
-	ID                 primitive.ObjectID `bson:"_id,omitempty"`
+	ID                 primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
 	LaunchURL          string             `bson:"launchUrl"`
 	Priority           string
 	Body               string

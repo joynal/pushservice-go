@@ -8,7 +8,7 @@ import (
 
 // Site model type
 type Site struct {
-	ID         primitive.ObjectID `bson:"_id,omitempty"`
+	ID         primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
 	Subject    string
 	PublicKey  string    `bson:"publicKey"`
 	PrivateKey string    `bson:"privateKey"`

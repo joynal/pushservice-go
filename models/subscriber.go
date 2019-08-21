@@ -21,7 +21,7 @@ type PushEndPoint struct {
 
 // Subscriber model
 type Subscriber struct {
-	ID           primitive.ObjectID `bson:"_id,omitempty"`
+	ID           primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
 	SiteID       primitive.ObjectID `bson:"siteId"`
 	Subscribed   bool
 	PushEndpoint string    `bson:"pushEndPoint"`

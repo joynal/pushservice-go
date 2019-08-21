@@ -6,7 +6,7 @@ import (
 
 // Push payload raw
 type RawPushPayload struct {
-  ID     primitive.ObjectID `bson:"_id,omitempty"`
+  ID     primitive.ObjectID `bson:"_id" json:"_id"`
   SiteID primitive.ObjectID `bson:"siteId"`
   Status string
 
