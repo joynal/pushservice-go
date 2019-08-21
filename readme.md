@@ -46,3 +46,10 @@ git clone git@bitbucket.org:Joynal/pushservice-go.git
 cd pushservice-go/
 dep ensure
 ```
+
+## Server tweak
+
+increase ulimit:
+```
+ulimit -n 50000
+```

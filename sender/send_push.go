@@ -15,11 +15,8 @@ import (
 func sendPush(
 	msg *sarama.ConsumerMessage,
 	sess sarama.ConsumerGroupSession,
-	maxChan chan bool,
 	coll mongo.Collection,
 	ctx context.Context) {
-	defer func(maxChan chan bool) { <-maxChan }(maxChan)
-
 	// commit kafka message
 	sess.MarkMessage(msg, "")
 

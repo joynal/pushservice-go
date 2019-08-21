@@ -10,10 +10,6 @@ import (
   "pushservice-go/utils"
 )
 
-const (
-	maxConcurrency = 10000
-)
-
 func init() {
   sarama.Logger = log.New(os.Stdout, "[Sarama] ", log.LstdFlags)
 }
@@ -48,7 +44,6 @@ func main() {
   consumer := Consumer{
     db: *db,
     ctx: ctx,
-    maxChan: make(chan bool, maxConcurrency),
     producer: producer,
   }
 
@@ -57,7 +52,6 @@ func main() {
 }
 
 type Consumer struct{
-  maxChan chan bool
   db mongo.Database
   ctx context.Context
   producer sarama.SyncProducer
@@ -67,7 +61,6 @@ func (consumer Consumer) Setup(_ sarama.ConsumerGroupSession) error   { return n
 func (consumer Consumer) Cleanup(_ sarama.ConsumerGroupSession) error { return nil }
 func (consumer Consumer) ConsumeClaim(sess sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) error {
   for msg := range claim.Messages() {
-    consumer.maxChan <- true
     processPush(msg, sess, consumer.maxChan, consumer.db, consumer.ctx, consumer.producer)
   }
 

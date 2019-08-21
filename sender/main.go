@@ -11,10 +11,6 @@ import (
   "github.com/Shopify/sarama"
 )
 
-const (
-  maxConcurrency = 1000
-)
-
 func init() {
   sarama.Logger = log.New(os.Stdout, "[Sarama] ", log.LstdFlags)
 }
@@ -56,11 +52,8 @@ type Consumer struct {
 func (consumer Consumer) Setup(_ sarama.ConsumerGroupSession) error { return nil }
 func (consumer Consumer) Cleanup(_ sarama.ConsumerGroupSession) error { return nil }
 func (consumer Consumer) ConsumeClaim(sess sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) error {
-  maxChan := make(chan bool, maxConcurrency)
-
   for msg := range claim.Messages() {
-    maxChan <- true
-    sendPush(msg, sess, maxChan, consumer.coll, consumer.ctx)
+    sendPush(msg, sess, consumer.coll, consumer.ctx)
   }
 
   return nil

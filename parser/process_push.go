@@ -22,8 +22,6 @@ func processPush(
 	db mongo.Database,
 	ctx context.Context,
 	producer sarama.SyncProducer) {
-	defer func(maxChan chan bool) { <-maxChan }(maxChan)
-
 	// commit kafka message
 	sess.MarkMessage(msg, "")
 
