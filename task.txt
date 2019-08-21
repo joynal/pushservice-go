@@ -1,0 +1,19 @@
+- fix batch problem - done
+- initial test - done
+    - local - done
+    - fix problems - done
+- load test
+    - local - done
+    - cloud
+- db seeder - done
+- set proper index - done
+- find out server configs for 1M load in 1 minute
+- kafka configs
+- kafka replication factor
+- research & fix large amount http call from nodejs
+- repo documentation & illustrations
+- time counting
+- write article
+    - research about article title
+    - outlines
+    - gather assets, images

@@ -1,0 +1,13 @@
+# What it is?
+- Describe what is this project about. What are we trying to solve.
+
+# How is it works?
+- Describe about architecture with illustration
+
+# Stack?
+
+# How can I install it?
+
+# How to run this on cloud?
+
+# License
