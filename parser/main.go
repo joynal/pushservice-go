@@ -8,6 +8,7 @@ import (
   "log"
   "os"
   "pushservice-go/utils"
+  "time"
 )
 
 func init() {
@@ -15,6 +16,7 @@ func init() {
 }
 
 func main() {
+  start := time.Now()
 	utils.LoadConfigs()
 
   dbUrl := os.Getenv("MONGODB_URL")
@@ -49,6 +51,8 @@ func main() {
 
   // start consuming
 	utils.GetConsumer("ParserGroup", os.Getenv("TOPIC_RAW_PUSH"), consumer)
+
+  fmt.Println("=============== elapsed ================>", time.Since(start))
 }
 
 type Consumer struct{
