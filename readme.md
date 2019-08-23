@@ -44,6 +44,7 @@ mkdir -p go/src
 cd go/src/
 git clone git@bitbucket.org:Joynal/pushservice-go.git
 cd pushservice-go/
+cp .env.example .env
 dep ensure
 ```
 
