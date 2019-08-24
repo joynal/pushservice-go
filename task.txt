@@ -20,3 +20,6 @@
 
 - Fix errors:
     - dial tcp: lookup too many open files
+
+- Find parser config for 1min
+- Find sender config for 1min

@@ -1,9 +1,10 @@
-* Load test:
+# parser load test:
     - 1M
-        - 12:11:20 - 12:14:00 (2 servers)
-        - 12:29:30 - 12:33:49 (2 servers)
-        - 12:52:40 - 12:55:35 (2 servers)
-
+        -
+        -
+        -
+        -
+        -
     - 2M
         -
         -
@@ -11,7 +12,13 @@
         -
         -
 
-    - 5M
+# Sender load test:
+    - 1M
+        -
+        -
+        -
+
+    - 2M
         -
         -
         -
