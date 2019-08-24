@@ -3,13 +3,11 @@ package main
 import (
   "context"
   "fmt"
+  "github.com/Shopify/sarama"
   "github.com/mongodb/mongo-go-driver/mongo"
   "log"
   "os"
   "pushservice-go/utils"
-  "time"
-
-  "github.com/Shopify/sarama"
 )
 
 func init() {
@@ -17,7 +15,6 @@ func init() {
 }
 
 func main() {
-  start := time.Now()
   utils.LoadConfigs()
 
   dbUrl := os.Getenv("MONGODB_URL")
@@ -44,8 +41,6 @@ func main() {
 
   // consuming
   utils.GetConsumer("SenderGroup", os.Getenv("TOPIC_PUSH"), consumer)
-
-  fmt.Println("=============== elapsed ================>", time.Since(start))
 }
 
 type Consumer struct {

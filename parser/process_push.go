@@ -21,10 +21,13 @@ func processPush(
 	db mongo.Database,
 	ctx context.Context,
 	producer sarama.SyncProducer) {
+  // time counter
+  start := time.Now()
+
 	// commit kafka message
 	sess.MarkMessage(msg, "")
 
-	// construct struct from byte
+  // construct struct from byte
 	var push models.RawPushPayload
 	err := json.Unmarshal(msg.Value, &push)
 	if err != nil {
@@ -97,13 +100,13 @@ func processPush(
 		"totalSent": push.TotalSent + counter,
 	}
 
-	res, err := db.Collection("pushes").UpdateOne(ctx, bson.M{"_id": push.ID}, bson.M{"$set": update})
+  _, err = db.Collection("pushes").UpdateOne(ctx, bson.M{"_id": push.ID}, bson.M{"$set": update})
 
 	if err != nil {
 		log.Fatalln("update err:", err)
 	}
 
-	fmt.Println("res: ", res)
+  fmt.Println("elapsed: ", time.Since(start))
 }
 
 func sendToTopic(data models.PushPayload, producer sarama.SyncProducer, wg *sync.WaitGroup) {
