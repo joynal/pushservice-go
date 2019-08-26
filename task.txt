@@ -1,8 +1,6 @@
-- producer:
-    - batching
-    - even distribution
-- Find parser config for 1min
-- Find sender config for 1min
+- Reuse http connection
+- Find parser config for 30s - done
+- Find sender config for 3min
 - kafka configs
 - kafka replication factor
 

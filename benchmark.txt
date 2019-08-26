@@ -1,7 +1,7 @@
 # parser load test:
     - 1M
-        -
-        -
+        - 42s
+        - 30s
         -
         -
         -
