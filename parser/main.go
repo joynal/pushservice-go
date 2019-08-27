@@ -15,7 +15,7 @@ func init() {
 }
 
 func main() {
-	utils.LoadConfigs()
+  utils.LoadConfigs()
 
   dbUrl := os.Getenv("MONGODB_URL")
   dbName := os.Getenv("DB_NAME")
@@ -42,18 +42,18 @@ func main() {
 
   // buffered channel for concurrency control
   consumer := Consumer{
-    db: *db,
-    ctx: ctx,
+    db:       *db,
+    ctx:      ctx,
     producer: producer,
   }
 
   // start consuming
-	utils.GetConsumer("ParserGroup", os.Getenv("TOPIC_RAW_PUSH"), consumer)
+  utils.GetConsumer("ParserGroup", os.Getenv("TOPIC_RAW_PUSH"), consumer)
 }
 
-type Consumer struct{
-  db mongo.Database
-  ctx context.Context
+type Consumer struct {
+  db       mongo.Database
+  ctx      context.Context
   producer sarama.SyncProducer
 }
 

@@ -20,10 +20,9 @@ type RawPushPayload struct {
   TimeToLive int `bson:"timeToLive"`
 
   // stats
-  TotalSent    int `bson:"totalSent"`
-  TotalDeliver int `bson:"totalDeliver"`
-  TotalClick   int `bson:"totalClick"`
-  TotalClose   int `bson:"totalClose"`
-  VapidDetails   VapidDetails `bson:"vapidDetails"`
+  TotalSent    int          `bson:"totalSent"`
+  TotalDeliver int          `bson:"totalDeliver"`
+  TotalClick   int          `bson:"totalClick"`
+  TotalClose   int          `bson:"totalClose"`
+  VapidDetails VapidDetails `bson:"vapidDetails"`
 }
-

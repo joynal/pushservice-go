@@ -36,7 +36,7 @@ func main() {
 
   consumer := Consumer{
     coll: *coll,
-    ctx: ctx,
+    ctx:  ctx,
   }
 
   // consuming
@@ -45,10 +45,10 @@ func main() {
 
 type Consumer struct {
   coll mongo.Collection
-  ctx context.Context
+  ctx  context.Context
 }
 
-func (consumer Consumer) Setup(_ sarama.ConsumerGroupSession) error { return nil }
+func (consumer Consumer) Setup(_ sarama.ConsumerGroupSession) error   { return nil }
 func (consumer Consumer) Cleanup(_ sarama.ConsumerGroupSession) error { return nil }
 func (consumer Consumer) ConsumeClaim(sess sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) error {
   for msg := range claim.Messages() {

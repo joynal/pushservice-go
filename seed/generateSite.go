@@ -1,36 +1,36 @@
 package seed
 
 import (
-	"context"
-	"fmt"
-	"log"
-	"pushservice-go/models"
-	"pushservice-go/utils"
-	"time"
+  "context"
+  "fmt"
+  "log"
+  "pushservice-go/models"
+  "pushservice-go/utils"
+  "time"
 
-	"github.com/mongodb/mongo-go-driver/bson/primitive"
-	"github.com/mongodb/mongo-go-driver/mongo"
+  "github.com/mongodb/mongo-go-driver/bson/primitive"
+  "github.com/mongodb/mongo-go-driver/mongo"
 )
 
 // GenerateSite will generate site data
 func GenerateSite(client *mongo.Client) primitive.ObjectID {
-	privateKey, publicKey, _ := utils.GenerateVapidKeys()
+  privateKey, publicKey, _ := utils.GenerateVapidKeys()
 
-	siteCollection := client.Database("pushservice").Collection("sites")
+  siteCollection := client.Database("pushservice").Collection("sites")
 
-	insertResult, err := siteCollection.InsertOne(context.TODO(), models.Site{
-		Subject:    "https://joynal.dev",
-		PrivateKey: privateKey,
-		PublicKey:  publicKey,
-		CreatedAt:  time.Now(),
-		UpdatedAt:  time.Now(),
-	})
+  insertResult, err := siteCollection.InsertOne(context.TODO(), models.Site{
+    Subject:    "https://joynal.dev",
+    PrivateKey: privateKey,
+    PublicKey:  publicKey,
+    CreatedAt:  time.Now(),
+    UpdatedAt:  time.Now(),
+  })
 
-	if err != nil {
-		log.Fatal(err)
-	}
+  if err != nil {
+    log.Fatal(err)
+  }
 
-	fmt.Println("Site created successfully: ", insertResult.InsertedID)
+  fmt.Println("Site created successfully: ", insertResult.InsertedID)
 
-	return insertResult.InsertedID.(primitive.ObjectID)
+  return insertResult.InsertedID.(primitive.ObjectID)
 }

@@ -1,25 +1,25 @@
 package seed
 
 import (
-	"context"
-	"fmt"
-	"github.com/mongodb/mongo-go-driver/mongo"
-	"log"
+  "context"
+  "fmt"
+  "github.com/mongodb/mongo-go-driver/mongo"
+  "log"
 )
 
 func main() {
-	client, err := mongo.Connect(context.TODO(), "mongodb://localhost:27017")
-	defer client.Disconnect(context.TODO())
+  client, err := mongo.Connect(context.TODO(), "mongodb://localhost:27017")
+  defer client.Disconnect(context.TODO())
 
-	if err != nil {
-		log.Fatal(err)
-	}
+  if err != nil {
+    log.Fatal(err)
+  }
 
-	fmt.Println("Connected to MongoDB!")
+  fmt.Println("Connected to MongoDB!")
 
-	siteID := GenerateSite(client)
+  siteID := GenerateSite(client)
 
-	GenerateNotifications(client, siteID)
+  GenerateNotifications(client, siteID)
 
-	GenerateSubscribers(client, siteID)
+  GenerateSubscribers(client, siteID)
 }

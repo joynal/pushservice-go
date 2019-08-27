@@ -1,13 +1,13 @@
 package utils
 
 import (
-	"log"
+  "log"
 
-	"github.com/Shopify/sarama"
+  "github.com/Shopify/sarama"
 )
 
 func TrackGroupErrors(client sarama.ConsumerGroup) {
-	for err := range client.Errors() {
-		log.Fatal(err)
-	}
+  for err := range client.Errors() {
+    log.Fatal(err)
+  }
 }

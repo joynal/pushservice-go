@@ -31,7 +31,7 @@ func main() {
   fmt.Println("Connected to MongoDB!")
 
   update := bson.M{
-    "status": "done",
+    "status":    "done",
     "updatedAt": time.Now(),
     "totalSent": 222,
   }
