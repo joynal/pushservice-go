@@ -9,8 +9,15 @@ import (
   "github.com/mongodb/mongo-go-driver/bson"
   "github.com/mongodb/mongo-go-driver/mongo"
   "log"
+  "net/http"
   "pushservice-go/models"
 )
+
+var httpClient *http.Client
+
+func init() {
+  httpClient = &http.Client{}
+}
 
 func sendPush(
   msg *sarama.ConsumerMessage,
@@ -46,6 +53,7 @@ func sendPush(
     VAPIDPrivateKey: push.Options.VapidDetails.PrivateKey,
     VAPIDPublicKey:  push.Options.VapidDetails.PublicKey,
     TTL:             push.Options.TTL,
+    HTTPClient: httpClient,
   })
   if err != nil {
     fmt.Println("send err:", err)
