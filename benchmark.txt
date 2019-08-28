@@ -1,16 +1,28 @@
 # parser load test:
     - 1M
-        - 42s
-        - 30s
-        -
-        -
-        -
+        - 42s - same region(us-central1-a) - 8cpu, 8GB ram
+        - 30s - same region(us-central1-a) - 8cpu, 8GB ram
+
+        - 1m49 - different region(us-west4-c) - 8cpu, 8GB ram
+
+        - 46s - same region(us-central1-c) - 8cpu, 8GB ram
+        - 44s - same region(us-central1-c) - 8cpu, 8GB ram
+
+        - 48s - same region(us-central1-c) - 12cpu, 10GB ram
+        - 40s - same region(us-central1-c) - 12cpu, 10GB ram
+        - 34s - same region(us-central1-c) - 12cpu, 10GB ram
+        - 29s - same region(us-central1-c) - 12cpu, 10GB ram
+        - 38s - same region(us-central1-c) - 12cpu, 10GB ram
+
+        - 24s - same region(us-central1-c) - 8cpu, 6GB ram
+        - 25s - same region(us-central1-c) - 8cpu, 6GB ram
+        - 26s - same region(us-central1-c) - 8cpu, 6GB ram
+        - 30s - same region(us-central1-c) - 8cpu, 6GB ram
     - 2M
-        -
-        -
-        -
-        -
-        -
+        - 1m23s - same region(us-central1-c) - 8cpu, 6GB ram
+        - 1m4s - same region(us-central1-c) - 8cpu, 6GB ram
+        - 1m - same region(us-central1-c) - 8cpu, 6GB ram
+        - 1m3s - same region(us-central1-c) - 8cpu, 6GB ram
 
 # Sender load test:
     - 1M

@@ -12,9 +12,9 @@ cat .ssh/id_rsa.pub
 # PATH=$PATH":/home/joynal3483/go/bin"
 source .profile
 
-mkdir -p go/src && cd go/src/
+mkdir -p go/src && cd go/src/ || exit
 git clone git@bitbucket.org:Joynal/pushservice-go.git
-cd pushservice-go/
+cd pushservice-go/ || exit
 dep ensure
 
 # build go program
@@ -24,4 +24,3 @@ go build -ldflags="-s -w" -o bin/sender sender/*
 # server tewak
 ulimit -n 1000000
 ulimit -S 1000000
-
