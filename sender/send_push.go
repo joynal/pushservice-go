@@ -3,7 +3,6 @@ package main
 import (
   "context"
   "encoding/json"
-  "fmt"
   "github.com/SherClockHolmes/webpush-go"
   "github.com/Shopify/sarama"
   "github.com/mongodb/mongo-go-driver/bson"
@@ -39,12 +38,12 @@ func sendPush(
   err = json.Unmarshal([]byte(push.PushEndpoint), s)
 
   if err != nil {
-    fmt.Println("endpoint err:", err)
+    log.Println("endpoint err:", err)
   }
 
   dataStr, err := json.Marshal(push.Data)
   if err != nil {
-    fmt.Println("data marshal err:", err)
+    log.Println("data marshal err:", err)
   }
 
   // Send Notification
@@ -56,20 +55,20 @@ func sendPush(
     HTTPClient: httpClient,
   })
   if err != nil {
-    fmt.Println("send err:", err)
+    log.Println("send err:", err)
   }
 
-  fmt.Println("res: ", res)
+  log.Println("res: ", res)
 
   if res != nil && res.StatusCode == 410 {
-    fmt.Println("webpush error:", err)
+    log.Println("webpush error:", err)
     _, err = coll.UpdateOne(
       ctx,
       bson.M{"_id": push.SubscriberID},
       bson.M{"$set": bson.M{"status": "unSubscribed"}})
 
     if err != nil {
-      fmt.Println("db update err:", err)
+      log.Println("db update err:", err)
     }
 
   }
