@@ -1,4 +1,10 @@
 # parser load test:
+
+tested with 200 push topics, 4 raw-push topics
+    - 500k
+        - 26s - same region(us-central1-a) - 8cpu, 8GB ram
+        - 38s - same region(us-central1-a) - 8cpu, 8GB ram
+        - 25s - same region(us-central1-a) - 8cpu, 8GB ram
     - 1M (500k * 2)
         - 42s - same region(us-central1-a) - 8cpu, 8GB ram
         - 30s - same region(us-central1-a) - 8cpu, 8GB ram
@@ -36,14 +42,9 @@
 
 
 # Sender load test:
-    - 1M
-        -
-        -
-        -
-
-    - 2M
-        -
-        -
-        -
-        -
-        -
+tested with 200 push topics, 4 raw-push topics
+    - 500k (4cpu, 4GB ram * 2 Instances) - same region(us-central1-a)
+        - 4m24s
+        - 1m39s
+        - 3m7s
+        - 2m20s
