@@ -48,3 +48,5 @@ tested with 200 push topics, 4 raw-push topics
         - 1m39s
         - 3m7s
         - 2m20s
+  - 1M (4cpu, 8GB ram * 2 Instances) - same region(us-central1-a)
+        - 4m24s
